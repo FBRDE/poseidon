@@ -1,5 +1,5 @@
 ## Poseidon
-The Java application **'Poseidon'** is trading app.
+The Java application **'Poseidon'** is a trading app.
 
 ## Technical:
 
