@@ -1,5 +1,5 @@
 ## Poseidon
-The Java application **'Poseidon'** is run with Maven and Spring Boot, on server port 8080.
+The Java application **'Poseidon'** is trading app.
 
 ## Technical:
 
