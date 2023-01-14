@@ -43,7 +43,7 @@
 				<th th:text="${c.id}" scope="row"></th>
 				<th th:text="${c.curveId}"></th>
 				<td th:text="${c.term}"></td>
-				<td th:text="${c.value}+' €'"></td>
+				<td th:text="${c.value}"></td>
 				<td style="width: 15%" class="text-center">
 					<a th:href="@{/curvePoint/update/{id}(id=${c.id})}">Edit</a>&nbsp;|&nbsp;
 					<a th:href="@{/curvePoint/delete/{id}(id=${c.id})}">Delete</a>

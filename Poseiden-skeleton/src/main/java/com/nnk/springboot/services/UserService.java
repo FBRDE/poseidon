@@ -33,8 +33,12 @@ public class UserService {
             return null;
         }
 
-        user.setPassword(encoder.encode(user.getPassword()));
-        return userRepository.save(user);
+         user.setPassword(encoder.encode(user.getPassword()));
+         User addedUser=userRepository.save(user);
+        if(addedUser!=null)
+            logger.info("User added successfully!");
+
+        return addedUser;
 
     }
     /**
@@ -44,7 +48,17 @@ public class UserService {
      * @return user
      */
     public User findById( Integer id) {
-        return userRepository.findUserById(id);
+        if (userRepository.existsById(id))
+        {
+            logger.info("User found successfully!");
+            return userRepository.findById(id).get();
+        }
+        else
+        {
+            logger.info("User not found!");
+            return null;
+        }
+
     }
     /**
      * Method service used to find all User.
@@ -72,16 +86,16 @@ public class UserService {
             return null;
         }
         String password = user.getPassword();
-        String password2=existingUser.getPassword();
+
         if(password != "")
         {
-            if (!(password.equals(password2)))
                 existingUser.setPassword(encoder.encode(password));
         }
         existingUser.setFullName(user.getFullName());
         existingUser.setUserName(user.getUserName());
         existingUser.setRole(user.getRole().toUpperCase());
         User updatedUser=userRepository.save(existingUser);
+        if(updatedUser!=null)
         logger.info("User updated successfully!");
         return updatedUser;
     }
@@ -95,17 +109,28 @@ public class UserService {
     public boolean deleteUser(Integer id) {
         boolean isDeleted = false;
 
-        User existingUser = userRepository.findUserById(id);
-
-        if (existingUser==null) {
+        if (!(userRepository.existsById(id))) {
             logger.error("Unknown user with id : {}", id);
             return isDeleted;
         }
-        userRepository.delete(existingUser);
-        logger.info("User deletd successfully!");
-        isDeleted = true;
+        else
+        {
+            userRepository.deleteById(id);
+            logger.info("User deleted successfully!");
+            isDeleted = true;
+        }
         return isDeleted;
     }
+    public void processOAuthPostLogin(String userName) {
 
+        if (!(userRepository.existsByUserName(userName)))
+        {
+            User newUser = new User();
+            newUser.setUserName(userName);
+            newUser.setRole("USER");
+            newUser.setPassword(encoder.encode("Abc123**"));
+            userRepository.save(newUser);
+        }
+    }
 
 }

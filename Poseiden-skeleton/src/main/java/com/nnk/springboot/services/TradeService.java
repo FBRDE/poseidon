@@ -23,18 +23,54 @@ public class TradeService {
         return list;
     }
 
-    public void add(Trade trade) {
+    public Trade add(Trade trade) {
+        if (tradeRepository.existsByAccount(trade.getAccount()))
+        {
+            logger.error("ERROR: this account is already used.");
+            return null;
+        }
         Trade trade1=tradeRepository.save(trade);
         if(trade1!=null)
         logger.info("Trade added successfully");
+        return trade1;
          }
 
-    public void deleteTrade(Integer id) {
-        tradeRepository.deleteById(id);
+    public boolean deleteTrade(Integer id) {
+
+        boolean isDeleted = false;
+
+        if (!(tradeRepository.existsById(id))) {
+            logger.error("Unknown trade with id : {}", id);
+            return isDeleted;
+        }
+        else
+        {
+            tradeRepository.deleteById(id);
+            logger.info("Trade deleted successfully!");
+            isDeleted = true;
+        }
+        return isDeleted;
     }
 
     public Trade getTrade(Integer id) {
-        return  tradeRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid Trade Id:" + id));
+        if (tradeRepository.existsById(id))
+        {
+            logger.info("Trade found successfully!");
+            return tradeRepository.findById(id).get();
+        }
+        else
+        {
+            logger.info("Trade not found!");
+            return null;
+        }
     }
 
+    public Trade update(Trade trade, Integer id) {
+
+        trade.setTradeId(id);
+        Trade updatedTrade=tradeRepository.save(trade);
+        if (updatedTrade!=null)
+            logger.info("BidList updated successfully!");
+        return updatedTrade;
+    }
 }

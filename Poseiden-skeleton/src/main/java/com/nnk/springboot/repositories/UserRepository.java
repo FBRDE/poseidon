@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 public interface UserRepository extends JpaRepository<User, Integer>, JpaSpecificationExecutor<User> {
 
-    User findUserByUserName(String userName);
+    User findByUserName(String userName);
     boolean existsByUserName(String userName);
     User findUserById(Integer id);
 }

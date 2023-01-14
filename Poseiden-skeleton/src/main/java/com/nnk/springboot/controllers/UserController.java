@@ -98,9 +98,11 @@ public class UserController {
         }
         else
         {
+            System.out.println(user.getPassword());
         user.setPassword("");
         model.addAttribute("user", user);
-        return "user/update"; }
+        return "user/update";
+        }
     }
 
     /**

@@ -20,7 +20,7 @@ import java.util.List;
 
 @Controller
 public class RuleNameController {
-    // Inject RuleName service => DONE
+    // Inject RuleName service
     @Autowired
     private RuleNameService ruleNameService;
     private static final Logger logger = LogManager.getLogger("RuleNameController");
@@ -93,8 +93,8 @@ public class RuleNameController {
                 }
             }
         }
-        ruleName.setId(id);
-        ruleNameService.add(ruleName);
+
+        ruleNameService.update(ruleName,id);
         model.addAttribute("ratingList", ruleNameService.getRuleNameList());
         return "redirect:/ruleName/list";
     }

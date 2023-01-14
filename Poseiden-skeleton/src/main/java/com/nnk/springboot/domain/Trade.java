@@ -6,8 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
-
 
 @NoArgsConstructor @AllArgsConstructor @Getter  @Setter
 @Entity
@@ -18,6 +18,7 @@ public class Trade {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="trade_id")
     Integer tradeId;
+    @NotBlank(message = "Account is mandatory")
     @Column(name="account")
     String account;
     @Column(name="type")
@@ -58,9 +59,10 @@ public class Trade {
     String sourceListId;
     @Column(name="side")
     String side;
-    public Trade(String trade_account, String typeV) {
-        account=trade_account;
-        type=typeV;
+    public Trade(String trade_account, String typeV,double buyQuantity) {
+        this.account=trade_account;
+        this.type=typeV;
+        this.buyQuantity=buyQuantity;
 
     }
 }

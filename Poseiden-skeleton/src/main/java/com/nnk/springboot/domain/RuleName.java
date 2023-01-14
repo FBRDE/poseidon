@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 
 @NoArgsConstructor @AllArgsConstructor @Getter  @Setter
 @Entity
@@ -16,8 +17,10 @@ public class RuleName {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
     Integer id;
+    @NotBlank(message = "Name is mandatory")
     @Column(name="name")
     String name;
+    @NotBlank(message = "Description is mandatory")
     @Column(name="description")
     String description;
     @Column(name="json")

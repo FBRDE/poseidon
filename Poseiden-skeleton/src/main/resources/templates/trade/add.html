@@ -16,7 +16,7 @@
 	<div class="row">
 		<form action="#" th:action="@{/trade/validate}" th:object="${trade}" method="post" class="form-horizontal" style="width: 100%">
 			<!--
-			TODO: Create a form to input the values of Trade, there are 2 buttons: Save data and Cancel to the list Trade
+			Create a form to input the values of Trade, there are 2 buttons: Save data and Cancel to the list Trade
 
 			 -->
 
@@ -24,7 +24,7 @@
 				<label for="account" class="col-sm-2 control-label">Account</label>
 				<div class="col-sm-10">
 					<input type="text" th:field="*{account}" id="account" placeholder="Account" class="col-4">
-					<p class="text-danger" th:if="${#fields.hasErrors('Account')}" th:errors="*{account}"></p>
+					<p class="text-danger" th:if="${#fields.hasErrors('account')}" th:errors="*{account}"></p>
 				</div>
 			</div>
 			<div class="form-group">

@@ -93,8 +93,8 @@ public class RatingController {
                 }
             }
         }
-        rating.setId(id);
-        ratingService.add(rating);
+
+        ratingService.update(rating,id);
         model.addAttribute("ratingList", ratingService.getRatingList());
         return "redirect:/rating/list";
     }

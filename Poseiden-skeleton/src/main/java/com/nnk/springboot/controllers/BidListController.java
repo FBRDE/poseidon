@@ -26,7 +26,7 @@ public class BidListController {
     @GetMapping("/bidList/list")
     public String home(Model model)
     {
-        // TODO: call service find all bids to show to the view => DONE
+        // Call service find all bids to show to the view
         List<BidList> bidList= bidListService.getBidList();
         model.addAttribute("bidList", bidList);
 
@@ -40,7 +40,7 @@ public class BidListController {
 
     @PostMapping("/bidList/validate")
     public String validate(@Valid BidList bid, BindingResult result, Model model) {
-        // Check data valid and save to db, after saving return bid list => DONE
+        // Check data valid and save to db, after saving return bid list
         if (!result.hasErrors()) {
             bidListService.add(bid);
             logger.info("@PostMapping(/bidList/validate): Bid added successfully");
@@ -67,7 +67,7 @@ public class BidListController {
     @GetMapping("/bidList/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
         // Get Bid by Id and to model then show to the form
-        BidList bidList = bidListService.getBid(id);
+        BidList bidList = bidListService.getBidById(id);
         model.addAttribute("bidList", bidList);
 
         return "bidList/update";
@@ -91,8 +91,7 @@ public class BidListController {
             }
             return "bidList/update";
         }
-        bidList.setBidListId(id);
-        bidListService.add(bidList);
+        bidListService.update(bidList,id);
         model.addAttribute("bidList", bidListService.getBidList());
         return "redirect:/bidList/list";
     }

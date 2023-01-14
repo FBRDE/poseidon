@@ -1,7 +1,7 @@
 package com.nnk.springboot.controllers;
 
 import com.nnk.springboot.domain.CurvePoint;
-import com.nnk.springboot.services.CurveService;
+import com.nnk.springboot.services.CurvePointService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +21,7 @@ import java.util.List;
 public class CurvePointController {
     // Inject Curve Point service
     @Autowired
-    private CurveService curveService;
+    private CurvePointService curveService;
     private static final Logger logger = LogManager.getLogger("CurveController");
     @GetMapping("/curvePoint/list")
     public String home(Model model)
@@ -66,7 +66,7 @@ public class CurvePointController {
     @GetMapping("/curvePoint/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
         // Get CurvePoint by Id and to model then show to the form
-        CurvePoint curvePoint = curveService.getCurvePoint(id);
+        CurvePoint curvePoint = curveService.getCurvePointById(id);
         model.addAttribute("curvePoint", curvePoint);
         return "curvePoint/update";
     }
@@ -89,8 +89,7 @@ public class CurvePointController {
             }
             return "curvePoint/update";
         }
-        curvePoint.setId(id);
-        curveService.add(curvePoint);
+        curveService.update(curvePoint,id);
         model.addAttribute("curvePointList", curveService.getCurvePointList());
         return "redirect:/curvePoint/list";
     }
